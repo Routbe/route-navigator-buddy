@@ -15,15 +15,11 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": false,
     "noEmit": true,
-    // Incrementele cache: de eerste check bouwt .tsbuildinfo, elke volgende
-    // check hergebruikt die en blijft daardoor binnen enkele seconden. Het
-    // bestand staat bewust in de projectmap: in node_modules/.cache overleeft
-    // het geen herinstallatie, waardoor elke check weer een volle 20 s+ kostte.
-    "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    // Een wijziging in één bestand hoeft niet het hele transitieve bereik te
-    // hercontroleren; dit houdt herhaalde checks in de seconden.
-    "assumeChangesOnlyAffectDirectDependencies": true,
+    // Bewust géén incrementele cache: tsgo en tsc schrijven allebei naar
+    // hetzelfde .tsbuildinfo, en een cache van de ene compiler laat de andere
+    // vastlopen (de preview-typecheck liep daardoor in een time-out). Een
+    // volledige koude check duurt hier enkele tientallen seconden en is
+    // daarmee ruim snel genoeg.
 
     "skipLibCheck": true,
     // The imported ROUT codebase was authored against looser settings; strict
