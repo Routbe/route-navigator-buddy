@@ -39,6 +39,7 @@ import { Route as TourRouteImport } from './routes/tour'
 import { Route as VcardQrRouteImport } from './routes/vcard-qr'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as WifiQrRouteImport } from './routes/wifi-qr'
+import { Route as ZzTmpRouteImport } from './routes/zz-tmp'
 import { Route as UsernameSlugRouteImport } from './routes/$username.$slug'
 import { Route as UsernameDonateRouteImport } from './routes/$username.donate'
 import { Route as UsernameTipRouteImport } from './routes/$username.tip'
@@ -245,6 +246,11 @@ const VerifyRoute = VerifyRouteImport.update({
 const WifiQrRoute = WifiQrRouteImport.update({
   id: '/wifi-qr',
   path: '/wifi-qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZzTmpRoute = ZzTmpRouteImport.update({
+  id: '/zz-tmp',
+  path: '/zz-tmp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UsernameSlugRoute = UsernameSlugRouteImport.update({
@@ -583,6 +589,7 @@ export interface FileRoutesByFullPath {
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
+  '/zz-tmp': typeof ZzTmpRoute
   '/$username/$slug': typeof UsernameSlugRoute
   '/$username/donate': typeof UsernameDonateRoute
   '/$username/tip': typeof UsernameTipRoute
@@ -672,6 +679,7 @@ export interface FileRoutesByTo {
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
+  '/zz-tmp': typeof ZzTmpRoute
   '/$username/$slug': typeof UsernameSlugRoute
   '/$username/donate': typeof UsernameDonateRoute
   '/$username/tip': typeof UsernameTipRoute
@@ -763,6 +771,7 @@ export interface FileRoutesById {
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
+  '/zz-tmp': typeof ZzTmpRoute
   '/$username/$slug': typeof UsernameSlugRoute
   '/$username/donate': typeof UsernameDonateRoute
   '/$username/tip': typeof UsernameTipRoute
@@ -854,6 +863,7 @@ export interface FileRouteTypes {
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
+    | '/zz-tmp'
     | '/$username/$slug'
     | '/$username/donate'
     | '/$username/tip'
@@ -943,6 +953,7 @@ export interface FileRouteTypes {
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
+    | '/zz-tmp'
     | '/$username/$slug'
     | '/$username/donate'
     | '/$username/tip'
@@ -1033,6 +1044,7 @@ export interface FileRouteTypes {
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
+    | '/zz-tmp'
     | '/$username/$slug'
     | '/$username/donate'
     | '/$username/tip'
@@ -1124,6 +1136,7 @@ export interface RootRouteChildren {
   VcardQrRoute: typeof VcardQrRoute
   VerifyRoute: typeof VerifyRoute
   WifiQrRoute: typeof WifiQrRoute
+  ZzTmpRoute: typeof ZzTmpRoute
   DotwellKnownAtprotoDidRoute: typeof DotwellKnownAtprotoDidRoute
   ApiPaymentStatusRoute: typeof ApiPaymentStatusRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
@@ -1369,6 +1382,13 @@ declare module '@tanstack/react-router' {
       path: '/wifi-qr'
       fullPath: '/wifi-qr'
       preLoaderRoute: typeof WifiQrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zz-tmp': {
+      id: '/zz-tmp'
+      path: '/zz-tmp'
+      fullPath: '/zz-tmp'
+      preLoaderRoute: typeof ZzTmpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$username/$slug': {
@@ -1951,6 +1971,7 @@ const rootRouteChildren: RootRouteChildren = {
   VcardQrRoute: VcardQrRoute,
   VerifyRoute: VerifyRoute,
   WifiQrRoute: WifiQrRoute,
+  ZzTmpRoute: ZzTmpRoute,
   DotwellKnownAtprotoDidRoute: DotwellKnownAtprotoDidRoute,
   ApiPaymentStatusRoute: ApiPaymentStatusRoute,
   AuthCallbackRoute: AuthCallbackRoute,
