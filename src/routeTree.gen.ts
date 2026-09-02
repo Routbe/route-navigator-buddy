@@ -39,7 +39,6 @@ import { Route as TourRouteImport } from './routes/tour'
 import { Route as VcardQrRouteImport } from './routes/vcard-qr'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as WifiQrRouteImport } from './routes/wifi-qr'
-import { Route as ZzTmpRouteImport } from './routes/zz-tmp'
 import { Route as UsernameSlugRouteImport } from './routes/$username.$slug'
 import { Route as UsernameDonateRouteImport } from './routes/$username.donate'
 import { Route as UsernameTipRouteImport } from './routes/$username.tip'
@@ -78,8 +77,6 @@ import { Route as ApiPublicBrandLogoRouteImport } from './routes/api_.public.bra
 import { Route as ApiPublicGalleryMediaRouteImport } from './routes/api_.public.gallery-media'
 import { Route as ApiPublicHealthRouteImport } from './routes/api_.public.health'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api_.public.stripe-webhook'
-import { Route as ApiPublicTmpDiagRouteImport } from './routes/api_.public.tmp-diag'
-import { Route as ApiPublicTmpMigrateRouteImport } from './routes/api_.public.tmp-migrate'
 import { Route as AuthGitlabCallbackRouteImport } from './routes/auth_.gitlab.callback'
 import { Route as AuthMastodonCallbackRouteImport } from './routes/auth_.mastodon.callback'
 import { Route as UUsernameSlugRouteImport } from './routes/u.$username.$slug'
@@ -246,11 +243,6 @@ const VerifyRoute = VerifyRouteImport.update({
 const WifiQrRoute = WifiQrRouteImport.update({
   id: '/wifi-qr',
   path: '/wifi-qr',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ZzTmpRoute = ZzTmpRouteImport.update({
-  id: '/zz-tmp',
-  path: '/zz-tmp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UsernameSlugRoute = UsernameSlugRouteImport.update({
@@ -451,16 +443,6 @@ const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   path: '/api/public/stripe-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicTmpDiagRoute = ApiPublicTmpDiagRouteImport.update({
-  id: '/api_/public/tmp-diag',
-  path: '/api/public/tmp-diag',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicTmpMigrateRoute = ApiPublicTmpMigrateRouteImport.update({
-  id: '/api_/public/tmp-migrate',
-  path: '/api/public/tmp-migrate',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthGitlabCallbackRoute = AuthGitlabCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
@@ -589,7 +571,6 @@ export interface FileRoutesByFullPath {
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
-  '/zz-tmp': typeof ZzTmpRoute
   '/$username/$slug': typeof UsernameSlugRoute
   '/$username/donate': typeof UsernameDonateRoute
   '/$username/tip': typeof UsernameTipRoute
@@ -628,8 +609,6 @@ export interface FileRoutesByFullPath {
   '/api/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
-  '/api/public/tmp-diag': typeof ApiPublicTmpDiagRoute
-  '/api/public/tmp-migrate': typeof ApiPublicTmpMigrateRoute
   '/auth/gitlab/callback': typeof AuthGitlabCallbackRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
@@ -679,7 +658,6 @@ export interface FileRoutesByTo {
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
-  '/zz-tmp': typeof ZzTmpRoute
   '/$username/$slug': typeof UsernameSlugRoute
   '/$username/donate': typeof UsernameDonateRoute
   '/$username/tip': typeof UsernameTipRoute
@@ -718,8 +696,6 @@ export interface FileRoutesByTo {
   '/api/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
-  '/api/public/tmp-diag': typeof ApiPublicTmpDiagRoute
-  '/api/public/tmp-migrate': typeof ApiPublicTmpMigrateRoute
   '/auth/gitlab/callback': typeof AuthGitlabCallbackRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
@@ -771,7 +747,6 @@ export interface FileRoutesById {
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
-  '/zz-tmp': typeof ZzTmpRoute
   '/$username/$slug': typeof UsernameSlugRoute
   '/$username/donate': typeof UsernameDonateRoute
   '/$username/tip': typeof UsernameTipRoute
@@ -810,8 +785,6 @@ export interface FileRoutesById {
   '/api_/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api_/public/health': typeof ApiPublicHealthRoute
   '/api_/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
-  '/api_/public/tmp-diag': typeof ApiPublicTmpDiagRoute
-  '/api_/public/tmp-migrate': typeof ApiPublicTmpMigrateRoute
   '/auth_/gitlab/callback': typeof AuthGitlabCallbackRoute
   '/auth_/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
@@ -863,7 +836,6 @@ export interface FileRouteTypes {
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
-    | '/zz-tmp'
     | '/$username/$slug'
     | '/$username/donate'
     | '/$username/tip'
@@ -902,8 +874,6 @@ export interface FileRouteTypes {
     | '/api/public/gallery-media'
     | '/api/public/health'
     | '/api/public/stripe-webhook'
-    | '/api/public/tmp-diag'
-    | '/api/public/tmp-migrate'
     | '/auth/gitlab/callback'
     | '/auth/mastodon/callback'
     | '/u/$username/$slug'
@@ -953,7 +923,6 @@ export interface FileRouteTypes {
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
-    | '/zz-tmp'
     | '/$username/$slug'
     | '/$username/donate'
     | '/$username/tip'
@@ -992,8 +961,6 @@ export interface FileRouteTypes {
     | '/api/public/gallery-media'
     | '/api/public/health'
     | '/api/public/stripe-webhook'
-    | '/api/public/tmp-diag'
-    | '/api/public/tmp-migrate'
     | '/auth/gitlab/callback'
     | '/auth/mastodon/callback'
     | '/u/$username/$slug'
@@ -1044,7 +1011,6 @@ export interface FileRouteTypes {
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
-    | '/zz-tmp'
     | '/$username/$slug'
     | '/$username/donate'
     | '/$username/tip'
@@ -1083,8 +1049,6 @@ export interface FileRouteTypes {
     | '/api_/public/gallery-media'
     | '/api_/public/health'
     | '/api_/public/stripe-webhook'
-    | '/api_/public/tmp-diag'
-    | '/api_/public/tmp-migrate'
     | '/auth_/gitlab/callback'
     | '/auth_/mastodon/callback'
     | '/u/$username/$slug'
@@ -1136,7 +1100,6 @@ export interface RootRouteChildren {
   VcardQrRoute: typeof VcardQrRoute
   VerifyRoute: typeof VerifyRoute
   WifiQrRoute: typeof WifiQrRoute
-  ZzTmpRoute: typeof ZzTmpRoute
   DotwellKnownAtprotoDidRoute: typeof DotwellKnownAtprotoDidRoute
   ApiPaymentStatusRoute: typeof ApiPaymentStatusRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
@@ -1156,8 +1119,6 @@ export interface RootRouteChildren {
   ApiPublicGalleryMediaRoute: typeof ApiPublicGalleryMediaRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
-  ApiPublicTmpDiagRoute: typeof ApiPublicTmpDiagRoute
-  ApiPublicTmpMigrateRoute: typeof ApiPublicTmpMigrateRoute
   AuthMastodonCallbackRoute: typeof AuthMastodonCallbackRoute
   ApiPublicAuthProviderRoute: typeof ApiPublicAuthProviderRouteWithChildren
   ApiPublicAuthMagicLinkRoute: typeof ApiPublicAuthMagicLinkRoute
@@ -1382,13 +1343,6 @@ declare module '@tanstack/react-router' {
       path: '/wifi-qr'
       fullPath: '/wifi-qr'
       preLoaderRoute: typeof WifiQrRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/zz-tmp': {
-      id: '/zz-tmp'
-      path: '/zz-tmp'
-      fullPath: '/zz-tmp'
-      preLoaderRoute: typeof ZzTmpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$username/$slug': {
@@ -1655,20 +1609,6 @@ declare module '@tanstack/react-router' {
       path: '/api/public/stripe-webhook'
       fullPath: '/api/public/stripe-webhook'
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api_/public/tmp-diag': {
-      id: '/api_/public/tmp-diag'
-      path: '/api/public/tmp-diag'
-      fullPath: '/api/public/tmp-diag'
-      preLoaderRoute: typeof ApiPublicTmpDiagRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api_/public/tmp-migrate': {
-      id: '/api_/public/tmp-migrate'
-      path: '/api/public/tmp-migrate'
-      fullPath: '/api/public/tmp-migrate'
-      preLoaderRoute: typeof ApiPublicTmpMigrateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth_/gitlab/callback': {
@@ -1971,7 +1911,6 @@ const rootRouteChildren: RootRouteChildren = {
   VcardQrRoute: VcardQrRoute,
   VerifyRoute: VerifyRoute,
   WifiQrRoute: WifiQrRoute,
-  ZzTmpRoute: ZzTmpRoute,
   DotwellKnownAtprotoDidRoute: DotwellKnownAtprotoDidRoute,
   ApiPaymentStatusRoute: ApiPaymentStatusRoute,
   AuthCallbackRoute: AuthCallbackRoute,
@@ -1991,8 +1930,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicGalleryMediaRoute: ApiPublicGalleryMediaRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
-  ApiPublicTmpDiagRoute: ApiPublicTmpDiagRoute,
-  ApiPublicTmpMigrateRoute: ApiPublicTmpMigrateRoute,
   AuthMastodonCallbackRoute: AuthMastodonCallbackRoute,
   ApiPublicAuthProviderRoute: ApiPublicAuthProviderRouteWithChildren,
   ApiPublicAuthMagicLinkRoute: ApiPublicAuthMagicLinkRoute,
