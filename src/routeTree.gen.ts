@@ -77,6 +77,8 @@ import { Route as ApiPublicBrandLogoRouteImport } from './routes/api_.public.bra
 import { Route as ApiPublicGalleryMediaRouteImport } from './routes/api_.public.gallery-media'
 import { Route as ApiPublicHealthRouteImport } from './routes/api_.public.health'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api_.public.stripe-webhook'
+import { Route as ApiPublicTmpDiagRouteImport } from './routes/api_.public.tmp-diag'
+import { Route as ApiPublicTmpMigrateRouteImport } from './routes/api_.public.tmp-migrate'
 import { Route as AuthGitlabCallbackRouteImport } from './routes/auth_.gitlab.callback'
 import { Route as AuthMastodonCallbackRouteImport } from './routes/auth_.mastodon.callback'
 import { Route as UUsernameSlugRouteImport } from './routes/u.$username.$slug'
@@ -443,6 +445,16 @@ const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   path: '/api/public/stripe-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTmpDiagRoute = ApiPublicTmpDiagRouteImport.update({
+  id: '/api_/public/tmp-diag',
+  path: '/api/public/tmp-diag',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicTmpMigrateRoute = ApiPublicTmpMigrateRouteImport.update({
+  id: '/api_/public/tmp-migrate',
+  path: '/api/public/tmp-migrate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthGitlabCallbackRoute = AuthGitlabCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
@@ -609,6 +621,8 @@ export interface FileRoutesByFullPath {
   '/api/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/tmp-diag': typeof ApiPublicTmpDiagRoute
+  '/api/public/tmp-migrate': typeof ApiPublicTmpMigrateRoute
   '/auth/gitlab/callback': typeof AuthGitlabCallbackRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
@@ -696,6 +710,8 @@ export interface FileRoutesByTo {
   '/api/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/tmp-diag': typeof ApiPublicTmpDiagRoute
+  '/api/public/tmp-migrate': typeof ApiPublicTmpMigrateRoute
   '/auth/gitlab/callback': typeof AuthGitlabCallbackRoute
   '/auth/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
@@ -785,6 +801,8 @@ export interface FileRoutesById {
   '/api_/public/gallery-media': typeof ApiPublicGalleryMediaRoute
   '/api_/public/health': typeof ApiPublicHealthRoute
   '/api_/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api_/public/tmp-diag': typeof ApiPublicTmpDiagRoute
+  '/api_/public/tmp-migrate': typeof ApiPublicTmpMigrateRoute
   '/auth_/gitlab/callback': typeof AuthGitlabCallbackRoute
   '/auth_/mastodon/callback': typeof AuthMastodonCallbackRoute
   '/u/$username/$slug': typeof UUsernameSlugRoute
@@ -874,6 +892,8 @@ export interface FileRouteTypes {
     | '/api/public/gallery-media'
     | '/api/public/health'
     | '/api/public/stripe-webhook'
+    | '/api/public/tmp-diag'
+    | '/api/public/tmp-migrate'
     | '/auth/gitlab/callback'
     | '/auth/mastodon/callback'
     | '/u/$username/$slug'
@@ -961,6 +981,8 @@ export interface FileRouteTypes {
     | '/api/public/gallery-media'
     | '/api/public/health'
     | '/api/public/stripe-webhook'
+    | '/api/public/tmp-diag'
+    | '/api/public/tmp-migrate'
     | '/auth/gitlab/callback'
     | '/auth/mastodon/callback'
     | '/u/$username/$slug'
@@ -1049,6 +1071,8 @@ export interface FileRouteTypes {
     | '/api_/public/gallery-media'
     | '/api_/public/health'
     | '/api_/public/stripe-webhook'
+    | '/api_/public/tmp-diag'
+    | '/api_/public/tmp-migrate'
     | '/auth_/gitlab/callback'
     | '/auth_/mastodon/callback'
     | '/u/$username/$slug'
@@ -1119,6 +1143,8 @@ export interface RootRouteChildren {
   ApiPublicGalleryMediaRoute: typeof ApiPublicGalleryMediaRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+  ApiPublicTmpDiagRoute: typeof ApiPublicTmpDiagRoute
+  ApiPublicTmpMigrateRoute: typeof ApiPublicTmpMigrateRoute
   AuthMastodonCallbackRoute: typeof AuthMastodonCallbackRoute
   ApiPublicAuthProviderRoute: typeof ApiPublicAuthProviderRouteWithChildren
   ApiPublicAuthMagicLinkRoute: typeof ApiPublicAuthMagicLinkRoute
@@ -1611,6 +1637,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api_/public/tmp-diag': {
+      id: '/api_/public/tmp-diag'
+      path: '/api/public/tmp-diag'
+      fullPath: '/api/public/tmp-diag'
+      preLoaderRoute: typeof ApiPublicTmpDiagRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api_/public/tmp-migrate': {
+      id: '/api_/public/tmp-migrate'
+      path: '/api/public/tmp-migrate'
+      fullPath: '/api/public/tmp-migrate'
+      preLoaderRoute: typeof ApiPublicTmpMigrateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth_/gitlab/callback': {
       id: '/auth_/gitlab/callback'
       path: '/callback'
@@ -1930,6 +1970,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicGalleryMediaRoute: ApiPublicGalleryMediaRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+  ApiPublicTmpDiagRoute: ApiPublicTmpDiagRoute,
+  ApiPublicTmpMigrateRoute: ApiPublicTmpMigrateRoute,
   AuthMastodonCallbackRoute: AuthMastodonCallbackRoute,
   ApiPublicAuthProviderRoute: ApiPublicAuthProviderRouteWithChildren,
   ApiPublicAuthMagicLinkRoute: ApiPublicAuthMagicLinkRoute,
