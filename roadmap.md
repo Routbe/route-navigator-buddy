@@ -46,3 +46,7 @@
 - [x] Root-claim + domeinenpaneel meertalig (root.* in nl/en/fr/de)
 - [x] Bezoekerspaneel: bezoeken, in tijd, per taal, bezoekenlijst (VisitorPanel + db/40)
 - [x] Hub/Studio-analytics: bezoekerslijst van je u/-pagina met tijd en taal
+
+## Infrastructuur
+- [x] Neon-database gekoppeld (DATABASE_URL) + alle db/*.sql migraties uitgevoerd
+- [x] Preview-typecheck: incrementele .tsbuildinfo-cache verwijderd (veroorzaakte time-out)
