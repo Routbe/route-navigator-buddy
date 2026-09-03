@@ -1144,5 +1144,15 @@
   "visits.space.all": "Tout",
   "visits.space.root": "rout.be/…",
   "visits.subtitle": "Comptages respectueux de la vie privée — aucune donnée personnelle, aucun cookie.",
-  "visits.title": "Visiteurs"
+  "visits.title": "Visiteurs",
+  "tour": {
+    "steps": {
+      "socials": "Canaux",
+      "background": "Arrière-plan",
+      "typography": "Typographie",
+      "footer": "Pied de page",
+      "avatar": "Photo",
+      "account": "Compte"
+    }
+  }
 }

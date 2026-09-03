@@ -1144,5 +1144,15 @@
   "visits.space.all": "Alle",
   "visits.space.root": "rout.be/…",
   "visits.subtitle": "Datenschutzfreundliche Zählung — keine personenbezogenen Daten, keine Cookies.",
-  "visits.title": "Besucher"
+  "visits.title": "Besucher",
+  "tour": {
+    "steps": {
+      "socials": "Kanäle",
+      "background": "Hintergrund",
+      "typography": "Typografie",
+      "footer": "Footer",
+      "avatar": "Foto",
+      "account": "Konto"
+    }
+  }
 }
