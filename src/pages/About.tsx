@@ -503,9 +503,7 @@ export default function About() {
                   aria-hidden
                 />
               </Link>
-              <Link to="/verify" className="text-sm underline underline-offset-4 opacity-70 hover:opacity-100">
-                {t("about.finalCta.secondaryButton")}
-              </Link>
+              <p className="text-xs opacity-60">{t("about.handleClaim.hint")}</p>
             </div>
           </div>
         </section>

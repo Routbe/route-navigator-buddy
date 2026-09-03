@@ -54,7 +54,11 @@ export default function Tour() {
   // 1. Concept uit deze browser terughalen (nooit tijdens SSR) of er één starten.
   useEffect(() => {
     const local = readLocalTourDraft();
-    setDraft(local?.token ? local : { ...(local ?? EMPTY_TOUR_DRAFT), token: newTourToken() });
+    const base = local?.token ? local : { ...(local ?? EMPTY_TOUR_DRAFT), token: newTourToken() };
+    // ?handle=... komt van de claim-knop op /about: meteen door naar stap 1.
+    const wanted = new URLSearchParams(window.location.search).get("handle") ?? "";
+    const prefill = normalizeHandleForStorage(wanted);
+    setDraft(prefill ? { ...base, handle: prefill, step: Math.max(base.step, 1) } : base);
     setHydrated(true);
   }, []);
 
