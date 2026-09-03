@@ -1009,9 +1009,14 @@
   "tour.profile.taken": "Ce handle est déjà pris.",
   "tour.profile.title": "Choisissez votre handle",
   "tour.steps.account": "Compte",
+  "tour.steps.avatar": "Photo",
+  "tour.steps.background": "Arrière-plan",
   "tour.steps.design": "Design",
+  "tour.steps.footer": "Pied de page",
   "tour.steps.intro": "Bienvenue",
   "tour.steps.profile": "Profil",
+  "tour.steps.socials": "Canaux",
+  "tour.steps.typography": "Typographie",
   "track.addLinkFirst": "Ajoutez d'abord un lien ou un fichier",
   "track.connectDomain": "Connecter un domaine",
   "track.copiedShort": "Lien court copié",
@@ -1144,15 +1149,5 @@
   "visits.space.all": "Tout",
   "visits.space.root": "rout.be/…",
   "visits.subtitle": "Comptages respectueux de la vie privée — aucune donnée personnelle, aucun cookie.",
-  "visits.title": "Visiteurs",
-  "tour": {
-    "steps": {
-      "socials": "Canaux",
-      "background": "Arrière-plan",
-      "typography": "Typographie",
-      "footer": "Pied de page",
-      "avatar": "Photo",
-      "account": "Compte"
-    }
-  }
+  "visits.title": "Visiteurs"
 }

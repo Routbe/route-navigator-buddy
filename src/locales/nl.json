@@ -1009,9 +1009,14 @@
   "tour.profile.taken": "Deze handle is al bezet.",
   "tour.profile.title": "Kies je handle",
   "tour.steps.account": "Account",
+  "tour.steps.avatar": "Foto",
+  "tour.steps.background": "Achtergrond",
   "tour.steps.design": "Ontwerp",
+  "tour.steps.footer": "Footer",
   "tour.steps.intro": "Welkom",
   "tour.steps.profile": "Profiel",
+  "tour.steps.socials": "Kanalen",
+  "tour.steps.typography": "Typografie",
   "track.addLinkFirst": "Voeg eerst een link of bestand toe",
   "track.connectDomain": "Koppel een domein",
   "track.copiedShort": "Short link gekopieerd",
@@ -1144,15 +1149,5 @@
   "visits.space.all": "Alles",
   "visits.space.root": "rout.be/…",
   "visits.subtitle": "Privacyvriendelijke tellingen — geen persoonsgegevens, geen cookies.",
-  "visits.title": "Bezoekers",
-  "tour": {
-    "steps": {
-      "socials": "Kanalen",
-      "background": "Achtergrond",
-      "typography": "Typografie",
-      "footer": "Footer",
-      "avatar": "Foto",
-      "account": "Account"
-    }
-  }
+  "visits.title": "Bezoekers"
 }

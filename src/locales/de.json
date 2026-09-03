@@ -1009,9 +1009,14 @@
   "tour.profile.taken": "Dieses Handle ist vergeben.",
   "tour.profile.title": "Wähle dein Handle",
   "tour.steps.account": "Konto",
+  "tour.steps.avatar": "Foto",
+  "tour.steps.background": "Hintergrund",
   "tour.steps.design": "Design",
+  "tour.steps.footer": "Footer",
   "tour.steps.intro": "Willkommen",
   "tour.steps.profile": "Profil",
+  "tour.steps.socials": "Kanäle",
+  "tour.steps.typography": "Typografie",
   "track.addLinkFirst": "Füge zuerst einen Link oder eine Datei hinzu",
   "track.connectDomain": "Domain verbinden",
   "track.copiedShort": "Short-Link kopiert",
@@ -1144,15 +1149,5 @@
   "visits.space.all": "Alle",
   "visits.space.root": "rout.be/…",
   "visits.subtitle": "Datenschutzfreundliche Zählung — keine personenbezogenen Daten, keine Cookies.",
-  "visits.title": "Besucher",
-  "tour": {
-    "steps": {
-      "socials": "Kanäle",
-      "background": "Hintergrund",
-      "typography": "Typografie",
-      "footer": "Footer",
-      "avatar": "Foto",
-      "account": "Konto"
-    }
-  }
+  "visits.title": "Besucher"
 }
