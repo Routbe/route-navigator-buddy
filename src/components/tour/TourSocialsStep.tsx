@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "@/lib/i18n";
 
 /** De mediakanalen die de rondleiding aanbiedt (de rest volgt in de Studio). */
 export const TOUR_SOCIALS = [
@@ -20,14 +21,15 @@ export function TourSocialsStep({
   socials: Record<string, string>;
   onChange: (kind: string, value: string) => void;
 }) {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">Je mediakanalen</h2>
-        <p className="text-sm text-muted-foreground">
-          Vul in wat je wil tonen. Alles wat je leeg laat, verschijnt niet op je profiel — later kan
-          je in de Studio nog tientallen kanalen toevoegen.
-        </p>
+        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+          {t("tour.socials.title")}
+        </h2>
+        <p className="text-sm text-muted-foreground">{t("tour.socials.body")}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
