@@ -7,6 +7,7 @@ import {
   type WallpaperType,
 } from "@/lib/profile-display";
 import { Input } from "@/components/ui/input";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 /** Stap 3: 🖼️ Achtergrond & Visual FX — thema, achtergrondstijl en wallpaper. */
@@ -33,20 +34,20 @@ export function TourBackgroundStep({
   onWallpaperColor: (value: string) => void;
   onWallpaperGradient: (value: string) => void;
 }) {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
         <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-          🖼️ Achtergrond &amp; Visual FX
+          🖼️ {t("tour.background.title")}
         </h2>
-        <p className="text-sm text-muted-foreground">
-          Kies je basisthema, het patroon erover en eventueel een eigen kleur of verloop.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("tour.background.body")}</p>
       </div>
 
       <div>
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Thema
+          {t("tour.background.theme")}
         </p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           {PROFILE_THEMES.map((option) => (
@@ -72,7 +73,7 @@ export function TourBackgroundStep({
 
       <div>
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Achtergrondstijl
+          {t("tour.background.style")}
         </p>
         <div className="flex flex-wrap gap-2">
           {BACKGROUND_STYLES.map((style) => (
@@ -96,7 +97,7 @@ export function TourBackgroundStep({
 
       <div className="space-y-3">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Wallpaper
+          {t("tour.background.wallpaper")}
         </p>
         <div className="flex flex-wrap gap-2">
           {WALLPAPER_TYPES.filter((w) => w.id !== "image").map((w) => (
@@ -121,7 +122,7 @@ export function TourBackgroundStep({
           <div className="flex items-center gap-2">
             <input
               type="color"
-              aria-label="Achtergrondkleur"
+              aria-label={t("tour.background.color")}
               value={wallpaperColor || "#111111"}
               onChange={(e) => onWallpaperColor(e.target.value)}
               className="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-border bg-transparent p-1"
