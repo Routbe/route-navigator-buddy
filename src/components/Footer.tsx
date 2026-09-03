@@ -160,33 +160,27 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-border/40 pt-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="mt-10 flex flex-col items-center gap-2 border-t border-border/40 pt-5 text-center text-xs text-muted-foreground">
+          <p>
+            <Link
+              to="/auth?redirect=/admin"
+              title="ROUT"
+              className="text-inherit no-underline hover:text-foreground"
+            >
+              © 2026 ROUT
+            </Link>{" "}
+            • Open Source (AGPLv3) • Designed &amp; engineered by{" "}
+            <a
+              href="https://delplanche.cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline underline-offset-4"
+            >
+              delplanche.cloud
+            </a>
+          </p>
           <StatusWidget className="font-mono text-xs" />
-          <div className="flex flex-col items-center gap-1 sm:items-end">
-            <p>
-              <Link
-                to="/auth?redirect=/admin"
-                title="ROUT"
 
-                className="text-inherit no-underline hover:text-foreground"
-              >
-                © 2026 ROUT
-              </Link>{" "}
-              • Open Source (AGPLv3)
-            </p>
-
-            <p>
-              Designed &amp; engineered by{" "}
-              <a
-                href="https://delplanche.cloud"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground underline underline-offset-4"
-              >
-                delplanche.cloud
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </footer>
