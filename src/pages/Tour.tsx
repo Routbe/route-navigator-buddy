@@ -145,12 +145,12 @@ export default function Tour() {
   const steps = [
     t("tour.steps.intro"),
     t("tour.steps.profile"),
-    "Kanalen",
-    "Achtergrond",
-    "Typografie",
-    "Footer",
-    "Foto",
-    "Account",
+    t("tour.steps.socials"),
+    t("tour.steps.background"),
+    t("tour.steps.typography"),
+    t("tour.steps.footer"),
+    t("tour.steps.avatar"),
+    t("tour.steps.account"),
   ];
 
   const canContinue = draft.step !== 1 || handleState === "ok";

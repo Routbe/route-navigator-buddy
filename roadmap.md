@@ -63,3 +63,10 @@
 - [ ] Studio → Design & styling: map "🎨 Thema & Kleurenschema" volledig verwijderen (overlapt met 🖼️ Achtergrond & Visual FX)
 - [ ] Adminportaal: geverifieerde naam wijzigen met schakelaar "username mee wijzigen" → voornaam.achternaam volgens de bestaande handleregels, achteraf aanpasbaar
 - [ ] Footer: "© 2026 ROUT • Open Source (AGPLv3)" gecentreerd zodat de footer smaller kan
+
+## Nieuwe taken (about + profiel)
+- [ ] About-pagina: "claim je handle" CTA's (boven en onder) starten de tour (/tour)
+- [ ] About-pagina: dubbele claim-knoppen onderaan samenvoegen tot 1 sterke CTA
+- [ ] About-pagina visueel opwaarderen + volledig 4-talig (nl/en/fr/de)
+- [ ] Tour-pagina volledig 4-talig
+- [ ] Profiel: knop "Contact opslaan" (vCard) met schakelaars per veld in de Studio
