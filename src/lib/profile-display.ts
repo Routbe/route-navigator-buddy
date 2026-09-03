@@ -178,6 +178,14 @@ export interface ProfileDisplayPrefs {
   showVcardButton: boolean;
   /** Eigen opschrift voor de contactknop (leeg = standaardtekst). */
   vcardLabel: string | null;
+  /** Welke gegevens in de contactkaart terechtkomen. */
+  vcardIncludeAvatar: boolean;
+  vcardIncludeBio: boolean;
+  vcardIncludeEmail: boolean;
+  vcardIncludeLinks: boolean;
+  /** Extra contactgegevens die enkel in de contactkaart zitten. */
+  vcardPhone: string | null;
+  vcardOrg: string | null;
   /** Entree-effect voor bezoekers (`none` = uit). */
   visitEffect: VisitEffect;
   /** Favoriete films, series, boeken … met (eigen of opgehaalde) afbeelding. */
@@ -235,6 +243,12 @@ export const DEFAULT_DISPLAY_PREFS: ProfileDisplayPrefs = {
   bioFr: null,
   showVcardButton: false,
   vcardLabel: null,
+  vcardIncludeAvatar: true,
+  vcardIncludeBio: true,
+  vcardIncludeEmail: true,
+  vcardIncludeLinks: true,
+  vcardPhone: null,
+  vcardOrg: null,
   visitEffect: "none",
   favorites: [],
   avatarShape: "circle",
@@ -430,6 +444,12 @@ export function parseDisplayPrefs(raw: unknown): ProfileDisplayPrefs {
     bioFr: textOrNull(r["bioFr"], 500),
     showVcardButton: Boolean(r["showVcardButton"]),
     vcardLabel: textOrNull(r["vcardLabel"], 40),
+    vcardIncludeAvatar: r["vcardIncludeAvatar"] === undefined ? true : Boolean(r["vcardIncludeAvatar"]),
+    vcardIncludeBio: r["vcardIncludeBio"] === undefined ? true : Boolean(r["vcardIncludeBio"]),
+    vcardIncludeEmail: r["vcardIncludeEmail"] === undefined ? true : Boolean(r["vcardIncludeEmail"]),
+    vcardIncludeLinks: r["vcardIncludeLinks"] === undefined ? true : Boolean(r["vcardIncludeLinks"]),
+    vcardPhone: textOrNull(r["vcardPhone"], 40),
+    vcardOrg: textOrNull(r["vcardOrg"], 80),
     visitEffect: normalizeVisitEffect(r["visitEffect"]),
     favorites: normalizeFavorites(r["favorites"]),
     avatarShape: oneOf(

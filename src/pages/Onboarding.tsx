@@ -21,8 +21,36 @@ import { DEFAULT_DISPLAY_PREFS, TYPOGRAPHY_STYLES, type Typography } from "@/lib
 import { handleLengthMessage, normalizeHandleForStorage } from "@/lib/handle-rules";
 import { strictHandleIssue } from "@/lib/handle-validation";
 import { HandleErrorBanner } from "@/components/HandleValidationMessage";
-import { clearLocalTourDraft, readLocalTourDraft } from "@/lib/tour-draft";
-import { discardMyTourDraft, getMyTourDraft } from "@/lib/tour-draft.functions";
+import { clearLocalTourDraft, readLocalTourDraft, type TourDraft } from "@/lib/tour-draft";
+import {
+  discardMyTourDraft,
+  discardTourDraftToken,
+  getMyTourDraft,
+  getTourDraftByToken,
+} from "@/lib/tour-draft.functions";
+import type { ProfileDisplayPrefs } from "@/lib/profile-display";
+
+/** Concept-token uit de rondleiding (`/onboarding?draft=…`). */
+function readDraftToken(): string {
+  if (typeof window === "undefined") return "";
+  return new URLSearchParams(window.location.search).get("draft") ?? "";
+}
+
+/** Zet de ontwerpkeuzes uit de rondleiding om in weergavevoorkeuren. */
+function draftPrefs(draft: TourDraft): Partial<ProfileDisplayPrefs> {
+  return {
+    typography: draft.typography,
+    backgroundStyle: draft.backgroundStyle,
+    wallpaperType: draft.wallpaperType,
+    ...(draft.wallpaperColor ? { wallpaperColor: draft.wallpaperColor } : {}),
+    wallpaperGradient: draft.wallpaperGradient,
+    fontPairing: draft.fontPairing,
+    footerTagline: draft.footerTagline,
+    footerStyle: draft.footerStyle,
+    ...(draft.footerAccent ? { footerAccent: draft.footerAccent } : {}),
+    showRoutBadge: draft.showRoutBadge,
+  };
+}
 
 /** Wizardstappen — de voortgangsbalk bovenaan volgt exact deze volgorde. */
 const STEPS = [
@@ -84,6 +112,8 @@ export default function Onboarding() {
   const [botToken, setBotToken] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [prefilled, setPrefilled] = useState(false);
+  const [tourPrefs, setTourPrefs] = useState<Partial<ProfileDisplayPrefs>>({});
+  const [draftToken, setDraftToken] = useState("");
   const timer = useRef<number | undefined>(undefined);
 
   // 1. OAuth auto-fill: avatar, naam en e-mail komen rechtstreeks uit de sessie.
@@ -99,15 +129,30 @@ export default function Onboarding() {
 
     // Rondleiding-concept: eerst deze browser, anders het serverconcept.
     void (async () => {
+      const token = readDraftToken();
       const local = readLocalTourDraft();
       const draft =
-        local ?? (await getMyTourDraft({}).then((r) => r.draft).catch(() => null));
+        (token
+          ? await getTourDraftByToken({ data: { token } })
+              .then((r) => r.draft)
+              .catch(() => null)
+          : null) ??
+        local ??
+        (await getMyTourDraft({})
+          .then((r) => r.draft)
+          .catch(() => null));
       if (!draft) return;
+      setDraftToken(token || draft.token || "");
       if (draft.handle) setHandle((prev) => prev || draft.handle);
       if (draft.displayName) setDisplayName((prev) => prev || draft.displayName);
       if (draft.bio) setBio((prev) => prev || draft.bio);
+      if (draft.avatarUrl) setAvatarUrl((prev) => prev || draft.avatarUrl);
       if (draft.theme) setTheme(draft.theme);
       if (draft.typography) setTypography(draft.typography);
+      if (draft.socials && Object.keys(draft.socials).length > 0) {
+        setSocials((prev) => ({ ...draft.socials, ...prev }));
+      }
+      setTourPrefs(draftPrefs(draft));
     })();
 
     void (async () => {
@@ -212,7 +257,7 @@ export default function Onboarding() {
           theme,
           cardStyle: "bordered",
           blocks: blocks as unknown as Record<string, string>[],
-          displayPrefs: { typography },
+          displayPrefs: { ...tourPrefs, typography } as unknown as Parameters<typeof saveStudioProfile>[0]["data"]["displayPrefs"],
         },
       });
       if (!saved.ok) {
@@ -220,6 +265,11 @@ export default function Onboarding() {
         return;
       }
       clearLocalTourDraft();
+      if (draftToken) {
+        void discardTourDraftToken({ data: { token: draftToken } }).catch(() => {
+          /* opruimen is comfort, nooit blokkerend */
+        });
+      }
       void discardMyTourDraft({}).catch(() => {
         /* opruimen is comfort, nooit blokkerend */
       });
@@ -230,7 +280,7 @@ export default function Onboarding() {
     } finally {
       setSaving(false);
     }
-  }, [user, normalized, botToken, displayName, bio, avatarUrl, theme, blocks, typography, nav]);
+  }, [user, normalized, botToken, displayName, bio, avatarUrl, theme, blocks, typography, tourPrefs, draftToken, nav]);
 
   return (
     <AppLayout

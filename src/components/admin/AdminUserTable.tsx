@@ -451,13 +451,12 @@ export function AdminUserTable({
                           Standard actions
                         </p>
                         <div className="flex flex-wrap gap-1.5">
-                          {row.verified ? null : (
-                            <VerifyUserDialog
-                              userId={row.userId}
-                              displayName={row.displayName}
-                              onDone={() => void refreshUsers()}
-                            />
-                          )}
+                          <VerifyUserDialog
+                            userId={row.userId}
+                            displayName={row.displayName}
+                            alreadyVerified={Boolean(row.verified)}
+                            onDone={() => void refreshUsers()}
+                          />
                           <Button
                             size="sm"
                             variant="secondary"

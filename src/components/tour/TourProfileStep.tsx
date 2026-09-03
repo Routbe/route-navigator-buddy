@@ -34,13 +34,16 @@ export function TourProfileStep({
         <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
           {t("tour.profile.title")}
         </h2>
-        <p className="text-sm text-muted-foreground">{t("tour.profile.body")}</p>
+        <p className="text-sm text-muted-foreground">
+          Dit wordt je eerste publieke adres: <strong>rout.be/u/jouwnaam</strong>. Later kan je er
+          een tweede, volledig apart profiel naast zetten.
+        </p>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="tour-handle">{t("tour.profile.handleLabel")}</Label>
         <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 focus-within:ring-2 focus-within:ring-primary">
-          <span className="shrink-0 text-sm text-muted-foreground">rout.be/</span>
+          <span className="shrink-0 text-sm text-muted-foreground">rout.be/u/</span>
           <Input
             id="tour-handle"
             value={handle}
@@ -48,7 +51,7 @@ export function TourProfileStep({
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
-            placeholder="jouwnaam"
+            placeholder="jouwnaam12"
             className="border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
           />
           {state === "checking" && (
@@ -64,9 +67,11 @@ export function TourProfileStep({
             ? t("tour.profile.available")
             : state === "taken"
               ? (reason ?? t("tour.profile.taken"))
-              : (reason ?? t("tour.profile.handleHint"))}
+              : (reason ??
+                "Minstens 5 tekens, met 3 letters en 2 cijfers (bv. jouwnaam12).")}
         </p>
       </div>
+
 
       <div className="space-y-2">
         <Label htmlFor="tour-name">{t("tour.profile.nameLabel")}</Label>

@@ -377,6 +377,12 @@ export async function setUserVerified(opts: {
   lastName?: string;
   /** Optionele reden die in de afwijzingsmail komt. */
   reason?: string | null;
+  /**
+   * Zet de handle opnieuw op basis van de (nieuwe) wettelijke naam, ook als de
+   * huidige handle al geldig is. Gebruikt door de admin-schakelaar
+   * "gebruikersnaam mee wijzigen".
+   */
+  renameHandle?: boolean;
 }) {
   const first = (opts.firstName ?? "").trim();
   const last = (opts.lastName ?? "").trim();
@@ -450,7 +456,8 @@ export async function setUserVerified(opts: {
     const currentHandle = ((row["username"] as string | null) ?? "").trim().toLowerCase();
     const allowed = verifiedHandleSuggestionList(legalName);
     // Al een handle die bij de echte naam past? Dan blijft die staan.
-    const alreadyOk = Boolean(currentHandle) && allowed.includes(currentHandle);
+    const alreadyOk =
+      !opts.renameHandle && Boolean(currentHandle) && allowed.includes(currentHandle);
 
     if (!alreadyOk) {
       for (const candidate of allowed) {

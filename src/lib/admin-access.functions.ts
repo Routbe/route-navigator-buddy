@@ -108,6 +108,7 @@ export const setUserVerifiedStatus = createServerFn({ method: "POST" })
         verified: z.boolean(),
         firstName: z.string().trim().max(80).optional(),
         lastName: z.string().trim().max(80).optional(),
+        renameHandle: z.boolean().optional(),
       })
       .parse(data),
   )

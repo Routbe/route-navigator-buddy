@@ -433,16 +433,20 @@ export function ProfileView({
                 handle: profile.username ?? "",
                 displayName: profile.display_name,
                 tagline: profile.tagline,
-                bio: shownBio,
-                avatarUrl: profile.avatar_url,
-                email: aliasEmail,
+                bio: prefs.vcardIncludeBio ? shownBio : null,
+                avatarUrl: prefs.vcardIncludeAvatar ? profile.avatar_url : null,
+                email: prefs.vcardIncludeEmail ? aliasEmail : null,
+                phone: prefs.vcardPhone,
+                org: prefs.vcardOrg,
                 profileUrl:
                   typeof window === "undefined"
                     ? `https://rout.be/${profile.username ?? ""}`
                     : window.location.href,
-                links: blocks
-                  .filter((b) => /^https?:\/\//.test(blockHref(b)))
-                  .map((b) => ({ label: b.kind, url: blockHref(b) })),
+                links: prefs.vcardIncludeLinks
+                  ? blocks
+                      .filter((b) => /^https?:\/\//.test(blockHref(b)))
+                      .map((b) => ({ label: b.kind, url: blockHref(b) }))
+                  : [],
               })
             }
             className="group mt-3 inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-4 text-xs font-medium shadow-sm transition-all hover:-translate-y-px hover:shadow-md"

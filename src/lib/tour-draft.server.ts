@@ -49,3 +49,36 @@ export async function deleteTourDraft(email: string) {
   await ensureTable();
   await sql`delete from public.onboarding_drafts where email = ${normalizeEmail(email)}`;
 }
+
+/**
+ * Anonieme concepten (nog geen e-mailadres): de rondleiding bewaart ze op een
+ * willekeurig token. De sleutelkolom blijft `email`, met het voorvoegsel
+ * `token:` zodat er geen extra migratie nodig is.
+ */
+const tokenKey = (token: string) => `token:${token.trim().slice(0, 80)}`;
+
+export async function upsertTourDraftByToken(token: string, draft: TourDraft) {
+  await ensureTable();
+  const key = tokenKey(token);
+  if (key.length < 12) return { ok: false as const, reason: "invalid_token" };
+  await sql`
+    insert into public.onboarding_drafts (email, draft, updated_at)
+    values (${key}, ${JSON.stringify(draft)}::jsonb, now())
+    on conflict (email) do update set draft = excluded.draft, updated_at = now()
+  `;
+  return { ok: true as const };
+}
+
+export async function readTourDraftByToken(token: string): Promise<TourDraft | null> {
+  await ensureTable();
+  const rows = (await sql`
+    select draft from public.onboarding_drafts where email = ${tokenKey(token)} limit 1
+  `) as { draft: unknown }[];
+  const row = rows[0];
+  return row ? parseTourDraft(row.draft) : null;
+}
+
+export async function deleteTourDraftByToken(token: string) {
+  await ensureTable();
+  await sql`delete from public.onboarding_drafts where email = ${tokenKey(token)}`;
+}

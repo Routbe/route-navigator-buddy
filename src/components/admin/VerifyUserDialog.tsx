@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
 import { setUserVerifiedStatus } from "@/lib/admin-access.functions";
 import { verifiedHandleSuggestionList } from "@/lib/verified-handle";
 
@@ -26,12 +27,15 @@ export function VerifyUserDialog({
   displayName,
   firstName,
   lastName,
+  /** Al geverifieerd? Dan wijzigt deze dialoog de geverifieerde naam. */
+  alreadyVerified = false,
   onDone,
 }: {
   userId: string;
   displayName: string | null;
   firstName?: string | null;
   lastName?: string | null;
+  alreadyVerified?: boolean;
   onDone?: () => void | Promise<void>;
 }) {
   const verify = useServerFn(setUserVerifiedStatus);
@@ -39,6 +43,8 @@ export function VerifyUserDialog({
   const [first, setFirst] = useState(firstName ?? "");
   const [last, setLast] = useState(lastName ?? "");
   const [busy, setBusy] = useState(false);
+  // Bij een naamswijziging mag de handle mee veranderen naar voornaam.achternaam.
+  const [renameHandle, setRenameHandle] = useState(!alreadyVerified);
 
   const preview = verifiedHandleSuggestionList(`${first} ${last}`.trim())[0] ?? null;
 
@@ -50,13 +56,21 @@ export function VerifyUserDialog({
     setBusy(true);
     try {
       const res = await verify({
-        data: { userId, verified: true, firstName: first.trim(), lastName: last.trim() },
+        data: {
+          userId,
+          verified: true,
+          firstName: first.trim(),
+          lastName: last.trim(),
+          renameHandle,
+        },
       });
       if (res.ok) {
         toast.success(
           res.promotedHandle
-            ? `Geverifieerd — nu rout.be/${res.promotedHandle}`
-            : "Account geverifieerd en gepromoveerd naar pro.",
+            ? `Naam bewaard — nu rout.be/${res.promotedHandle}`
+            : alreadyVerified
+              ? "Geverifieerde naam bijgewerkt."
+              : "Account geverifieerd en gepromoveerd naar pro.",
         );
         setOpen(false);
         await onDone?.();
@@ -73,16 +87,20 @@ export function VerifyUserDialog({
   return (
     <>
       <Button size="sm" variant="secondary" className="h-8" onClick={() => setOpen(true)}>
-        <BadgeCheck className="mr-1.5 h-3.5 w-3.5" aria-hidden /> Verifieer &amp; activeer
+        <BadgeCheck className="mr-1.5 h-3.5 w-3.5" aria-hidden />{" "}
+        {alreadyVerified ? "Naam wijzigen" : "Verifieer & activeer"}
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Account verifiëren</DialogTitle>
+            <DialogTitle>
+              {alreadyVerified ? "Geverifieerde naam wijzigen" : "Account verifiëren"}
+            </DialogTitle>
             <DialogDescription>
-              Vul de wettelijke naam in zoals op het identiteitsbewijs. Het account wordt
-              geverifieerd, krijgt de pro-tier en verhuist van /u/alias naar rout.be/handle.
+              {alreadyVerified
+                ? "Pas de wettelijke naam aan zoals op het identiteitsbewijs."
+                : "Vul de wettelijke naam in zoals op het identiteitsbewijs. Het account wordt geverifieerd, krijgt de pro-tier en verhuist van /u/alias naar rout.be/handle."}
               {displayName ? ` Account: ${displayName}.` : ""}
             </DialogDescription>
           </DialogHeader>
@@ -108,7 +126,22 @@ export function VerifyUserDialog({
             </div>
           </div>
 
-          {preview ? (
+          <div className="flex items-start justify-between gap-4 rounded-xl border border-border p-3">
+            <div className="min-w-0">
+              <p className="text-sm font-medium">Gebruikersnaam mee wijzigen</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Zet de handle automatisch op voornaam.achternaam (volledig uitgeschreven, volgens de
+                gewone handleregels). De volgorde kan achteraf nog aangepast worden.
+              </p>
+            </div>
+            <Switch
+              aria-label="Gebruikersnaam mee wijzigen"
+              checked={renameHandle}
+              onCheckedChange={setRenameHandle}
+            />
+          </div>
+
+          {preview && renameHandle ? (
             <p className="font-mono text-xs text-muted-foreground">Voorstel: rout.be/{preview}</p>
           ) : null}
 
@@ -117,7 +150,7 @@ export function VerifyUserDialog({
               Annuleren
             </Button>
             <Button onClick={() => void submit()} disabled={busy}>
-              Verifiëren
+              {alreadyVerified ? "Opslaan" : "Verifiëren"}
             </Button>
           </DialogFooter>
         </DialogContent>
