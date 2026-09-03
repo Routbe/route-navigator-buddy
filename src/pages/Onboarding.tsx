@@ -257,7 +257,7 @@ export default function Onboarding() {
           theme,
           cardStyle: "bordered",
           blocks: blocks as unknown as Record<string, string>[],
-          displayPrefs: { ...tourPrefs, typography } as unknown as Record<string, unknown>,
+          displayPrefs: { ...tourPrefs, typography } as unknown as Parameters<typeof saveStudioProfile>[0]["data"]["displayPrefs"],
         },
       });
       if (!saved.ok) {
