@@ -68,5 +68,5 @@
 - [ ] About-pagina: "claim je handle" CTA's (boven en onder) starten de tour (/tour)
 - [ ] About-pagina: dubbele claim-knoppen onderaan samenvoegen tot 1 sterke CTA
 - [ ] About-pagina visueel opwaarderen + volledig 4-talig (nl/en/fr/de)
-- [ ] Tour-pagina volledig 4-talig
+- [x] Tour-pagina volledig 4-talig (alle stapteksten via tour.* sleutels in nl/en/fr/de)
 - [ ] Profiel: knop "Contact opslaan" (vCard) met schakelaars per veld in de Studio
