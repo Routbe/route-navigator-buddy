@@ -257,7 +257,7 @@ export default function Onboarding() {
           theme,
           cardStyle: "bordered",
           blocks: blocks as unknown as Record<string, string>[],
-          displayPrefs: { ...tourPrefs, typography },
+          displayPrefs: { ...tourPrefs, typography } as unknown as Record<string, unknown>,
         },
       });
       if (!saved.ok) {
