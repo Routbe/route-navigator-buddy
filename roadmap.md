@@ -50,3 +50,16 @@
 ## Infrastructuur
 - [x] Neon-database gekoppeld (DATABASE_URL) + alle db/*.sql migraties uitgevoerd
 - [x] Preview-typecheck: incrementele .tsbuildinfo-cache verwijderd (veroorzaakte time-out)
+
+## Rondleiding herbouw (gevraagd)
+- [ ] Voortgangsbalk start op 0% bij de intro
+- [ ] Eerste adres is rout.be/u/<handle> (min. 5 tekens, 3 letters, 2 cijfers)
+- [ ] Twee kolommen: vragen links, live voorbeeld rechts (mobiel gestapeld)
+- [ ] Stappen: profiel → mediakanalen → achtergrond & visual FX → typografie → footer & branding → profielfoto → registratie
+- [ ] Concept tijdelijk in Neon (anoniem token) en toepassen na registratie
+- [ ] Registratie via het gewone /auth-venster i.p.v. eigen magic-link stap
+
+## Nieuw gemeld (admin, studio, footer)
+- [ ] Studio → Design & styling: map "🎨 Thema & Kleurenschema" volledig verwijderen (overlapt met 🖼️ Achtergrond & Visual FX)
+- [ ] Adminportaal: geverifieerde naam wijzigen met schakelaar "username mee wijzigen" → voornaam.achternaam volgens de bestaande handleregels, achteraf aanpasbaar
+- [ ] Footer: "© 2026 ROUT • Open Source (AGPLv3)" gecentreerd zodat de footer smaller kan

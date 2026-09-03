@@ -41,3 +41,39 @@ export const discardMyTourDraft = createServerFn({ method: "POST" })
     }
     return { ok: true as const };
   });
+
+/**
+ * Anoniem opslaan tijdens de rondleiding: er is nog geen account, dus het
+ * concept hangt aan een willekeurig token dat de browser meedraagt naar de
+ * registratie. Zo staat elke keuze al in Neon vóór de eerste login.
+ */
+export const saveTourDraftToken = createServerFn({ method: "POST" })
+  .inputValidator((input: { token: string; draft: unknown }) => input)
+  .handler(async ({ data }) => {
+    const token = String(data.token ?? "").trim();
+    if (token.length < 8) return { ok: false as const, reason: "invalid_token" };
+    const { upsertTourDraftByToken } = await import("@/lib/tour-draft.server");
+    return upsertTourDraftByToken(token, parseTourDraft(data.draft));
+  });
+
+/** Haalt een anoniem concept op na registratie (token uit de rondleiding). */
+export const getTourDraftByToken = createServerFn({ method: "POST" })
+  .inputValidator((input: { token: string }) => input)
+  .handler(async ({ data }) => {
+    const token = String(data.token ?? "").trim();
+    if (token.length < 8) return { draft: null as TourDraft | null };
+    const { readTourDraftByToken } = await import("@/lib/tour-draft.server");
+    return { draft: await readTourDraftByToken(token) };
+  });
+
+/** Ruimt een anoniem concept op zodra het profiel echt is aangemaakt. */
+export const discardTourDraftToken = createServerFn({ method: "POST" })
+  .inputValidator((input: { token: string }) => input)
+  .handler(async ({ data }) => {
+    const token = String(data.token ?? "").trim();
+    if (token.length >= 8) {
+      const { deleteTourDraftByToken } = await import("@/lib/tour-draft.server");
+      await deleteTourDraftByToken(token);
+    }
+    return { ok: true as const };
+  });

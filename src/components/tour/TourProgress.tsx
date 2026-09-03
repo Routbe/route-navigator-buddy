@@ -3,9 +3,11 @@ import { cn } from "@/lib/utils";
 
 /** Compacte voortgangsbalk boven de rondleiding — leesbaar vanaf 320 px breed. */
 export function TourProgress({ steps, current }: { steps: string[]; current: number }) {
-  const pct = ((current + 1) / steps.length) * 100;
+  // De intro (index 0) staat op 0%; de laatste stap op 100%.
+  const pct = steps.length > 1 ? (current / (steps.length - 1)) * 100 : 0;
   return (
     <div className="space-y-3">
+
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
         <div
           className="h-full rounded-full bg-foreground transition-all duration-300"
