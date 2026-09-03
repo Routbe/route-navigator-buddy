@@ -281,9 +281,8 @@ function HandleClaim() {
   const { t } = useI18n();
   const [value, setValue] = useState("");
   const handle = useMemo(() => value.toLowerCase().replace(HANDLE_RE, "").slice(0, 30), [value]);
-  const target = handle
-    ? `/auth?redirect=${encodeURIComponent(`/dashboard/profile?handle=${handle}`)}`
-    : "/auth";
+  // De claim start voortaan de rondleiding; de handle reist mee als startwaarde.
+  const target = handle ? `/tour?handle=${encodeURIComponent(handle)}` : "/tour";
 
   return (
     <form
@@ -477,49 +476,40 @@ export default function About() {
           <ComparisonMatrix />
         </section>
 
-        <section className="mt-10 rounded-3xl border border-border bg-foreground p-6 text-center text-background shadow-sm sm:p-8">
-          <h2 className="font-serif text-xl font-semibold sm:text-2xl">
-            {t("about.claimCta.title")}
-          </h2>
-          <p className="mx-auto mt-2 max-w-lg text-sm opacity-80">{t("about.claimCta.body")}</p>
-          <Link
-            to="/auth"
-            className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-background px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
-          >
-            {t("about.claimCta.button")}
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
-          <p className="mt-4 text-sm opacity-80">
-            {t("tour.cta.title")}{" "}
-            <Link to="/tour" className="underline underline-offset-4">
-              {t("tour.cta.button")}
-            </Link>
-          </p>
-        </section>
-
-        <section className={`mt-10 text-center ${CARD}`}>
-          <h2 className="font-serif text-xl font-semibold text-foreground sm:text-2xl">
-            {t("about.finalCta.title")}
-          </h2>
-          <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground">
-            {t("about.finalCta.body")}
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              to="/auth"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-foreground px-6 text-sm font-medium text-background transition-opacity hover:opacity-90"
-            >
-              {t("about.finalCta.primaryButton")}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <Link
-              to="/verify"
-              className="inline-flex min-h-11 items-center justify-center rounded-xl border border-border px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-            >
-              {t("about.finalCta.secondaryButton")}
-            </Link>
+        {/* Eén ultieme CTA onderaan: de rondleiding is het startpunt. */}
+        <section className="relative mt-16 overflow-hidden rounded-[2rem] border border-border bg-foreground px-6 py-12 text-center text-background shadow-lg sm:px-10 sm:py-16">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 -top-24 mx-auto h-64 w-64 rounded-full bg-background/10 blur-3xl sm:h-80 sm:w-80"
+          />
+          <div className="relative">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] opacity-60">
+              {t("about.finalCta.title")}
+            </p>
+            <h2 className="mx-auto mt-3 max-w-2xl font-serif text-2xl font-semibold leading-tight sm:text-4xl">
+              {t("about.claimCta.title")}
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm opacity-80 sm:text-base">
+              {t("about.claimCta.body")}
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <Link
+                to="/tour"
+                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-background px-8 text-base font-semibold text-foreground shadow-sm transition-transform hover:scale-[1.02]"
+              >
+                {t("about.claimCta.button")}
+                <ArrowRight
+                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+              </Link>
+              <Link to="/verify" className="text-sm underline underline-offset-4 opacity-70 hover:opacity-100">
+                {t("about.finalCta.secondaryButton")}
+              </Link>
+            </div>
           </div>
         </section>
+
       </div>
     </AppLayout>
   );
