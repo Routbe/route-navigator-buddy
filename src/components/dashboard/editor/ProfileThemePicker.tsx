@@ -250,6 +250,60 @@ export function ProfileThemePicker({
               onCheckedChange={(v) => setPref("showVcardButton", v)}
             />
           </div>
+
+          {/* Welke gegevens de bezoeker in zijn adresboek krijgt. */}
+          {prefs.showVcardButton && (
+            <div className="space-y-3 rounded-2xl border border-border bg-muted/30 p-4">
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-muted-foreground">Opschrift van de knop</p>
+                <Input
+                  value={prefs.vcardLabel ?? ""}
+                  maxLength={40}
+                  placeholder="Contact opslaan"
+                  onChange={(e) => setPref("vcardLabel", e.target.value || null)}
+                />
+              </div>
+              {(
+                [
+                  ["vcardIncludeAvatar", "Profielfoto meesturen"],
+                  ["vcardIncludeBio", "Bio / tagline als notitie"],
+                  ["vcardIncludeEmail", "E-mailadres"],
+                  ["vcardIncludeLinks", "Links & socials"],
+                ] as const
+              ).map(([key, label]) => (
+                <div key={key} className="flex items-center justify-between gap-4">
+                  <span className="text-sm">{label}</span>
+                  <Switch
+                    aria-label={label}
+                    checked={prefs[key]}
+                    onCheckedChange={(v) => setPref(key, v)}
+                  />
+                </div>
+              ))}
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-muted-foreground">Telefoon (optioneel)</p>
+                  <Input
+                    value={prefs.vcardPhone ?? ""}
+                    maxLength={40}
+                    placeholder="+32 470 00 00 00"
+                    onChange={(e) => setPref("vcardPhone", e.target.value || null)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-muted-foreground">
+                    Organisatie (optioneel)
+                  </p>
+                  <Input
+                    value={prefs.vcardOrg ?? ""}
+                    maxLength={80}
+                    placeholder="ROUT"
+                    onChange={(e) => setPref("vcardOrg", e.target.value || null)}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex items-start justify-between gap-4 border-t border-border pt-4">
             <div className="min-w-0">
               <p className="text-sm font-medium">&ldquo;Made with ROUT&rdquo;-voetnoot</p>
