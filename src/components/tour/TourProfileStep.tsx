@@ -34,10 +34,7 @@ export function TourProfileStep({
         <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
           {t("tour.profile.title")}
         </h2>
-        <p className="text-sm text-muted-foreground">
-          Dit wordt je eerste publieke adres: <strong>rout.be/u/jouwnaam</strong>. Later kan je er
-          een tweede, volledig apart profiel naast zetten.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("tour.profile.body")}</p>
       </div>
 
       <div className="space-y-2">
@@ -67,8 +64,7 @@ export function TourProfileStep({
             ? t("tour.profile.available")
             : state === "taken"
               ? (reason ?? t("tour.profile.taken"))
-              : (reason ??
-                "Minstens 5 tekens, met 3 letters en 2 cijfers (bv. jouwnaam12).")}
+              : (reason ?? t("tour.profile.handleHint"))}
         </p>
       </div>
 

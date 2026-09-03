@@ -1,4 +1,10 @@
-import { FONT_PAIRINGS, TYPOGRAPHY_STYLES, type FontPairing, type Typography } from "@/lib/profile-display";
+import {
+  FONT_PAIRINGS,
+  TYPOGRAPHY_STYLES,
+  type FontPairing,
+  type Typography,
+} from "@/lib/profile-display";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 /** Stap 4: Typografie — basisletter en letterkoppel. */
@@ -13,18 +19,20 @@ export function TourTypographyStep({
   onTypography: (value: Typography) => void;
   onFontPairing: (value: FontPairing) => void;
 }) {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">Typografie</h2>
-        <p className="text-sm text-muted-foreground">
-          Kies hoe je tekst leest. Het voorbeeld verandert meteen mee.
-        </p>
+        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+          {t("tour.typography.title")}
+        </h2>
+        <p className="text-sm text-muted-foreground">{t("tour.typography.body")}</p>
       </div>
 
       <div>
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Basisletter
+          {t("tour.typography.base")}
         </p>
         <div className="flex flex-wrap gap-2">
           {TYPOGRAPHY_STYLES.map((font) => (
@@ -48,7 +56,7 @@ export function TourTypographyStep({
 
       <div>
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Letterkoppel
+          {t("tour.typography.pairing")}
         </p>
         <div className="grid gap-2 sm:grid-cols-2">
           {FONT_PAIRINGS.map((pair) => (

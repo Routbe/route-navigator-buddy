@@ -2,6 +2,7 @@ import { FOOTER_STYLES, type FooterStyle } from "@/lib/profile-display";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 /** Stap 5: 🏷️ Footer & Branding — slotzin, stijl, accentkleur en ROUT-badge. */
@@ -24,29 +25,31 @@ export function TourFooterStep({
   onAccent: (value: string) => void;
   onShowRoutBadge: (value: boolean) => void;
 }) {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">🏷️ Footer &amp; Branding</h2>
-        <p className="text-sm text-muted-foreground">
-          De laatste regel van je profiel: jouw slotzin, in jouw stijl.
-        </p>
+        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+          🏷️ {t("tour.footer.title")}
+        </h2>
+        <p className="text-sm text-muted-foreground">{t("tour.footer.body")}</p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="tour-footer-tagline">Slotzin</Label>
+        <Label htmlFor="tour-footer-tagline">{t("tour.footer.tagline")}</Label>
         <Input
           id="tour-footer-tagline"
           value={tagline}
           maxLength={80}
           onChange={(e) => onTagline(e.target.value)}
-          placeholder="Gemaakt in Vlaanderen"
+          placeholder={t("tour.footer.taglinePlaceholder")}
         />
       </div>
 
       <div>
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Stijl
+          {t("tour.footer.style")}
         </p>
         <div className="grid gap-2 sm:grid-cols-2">
           {FOOTER_STYLES.map((option) => (
@@ -70,7 +73,7 @@ export function TourFooterStep({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="tour-footer-accent">Accentkleur</Label>
+        <Label htmlFor="tour-footer-accent">{t("tour.footer.accent")}</Label>
         <div className="flex items-center gap-2">
           <input
             id="tour-footer-accent"
@@ -82,7 +85,7 @@ export function TourFooterStep({
           <Input
             value={accent}
             onChange={(e) => onAccent(e.target.value)}
-            placeholder="Leeg = volg thema"
+            placeholder={t("tour.footer.accentPlaceholder")}
             spellCheck={false}
             className="h-10 font-mono text-xs"
           />
@@ -91,8 +94,8 @@ export function TourFooterStep({
 
       <div className="flex items-center justify-between gap-4 rounded-2xl border border-border p-4">
         <div>
-          <p className="text-sm font-medium">ROUT-badge tonen</p>
-          <p className="text-xs text-muted-foreground">Een kleine verwijzing onderaan je profiel.</p>
+          <p className="text-sm font-medium">{t("tour.footer.badge")}</p>
+          <p className="text-xs text-muted-foreground">{t("tour.footer.badgeHint")}</p>
         </div>
         <Switch checked={showRoutBadge} onCheckedChange={onShowRoutBadge} />
       </div>
