@@ -190,95 +190,6 @@ export function ProfileThemePicker({
         </AccordionContent>
       </AccordionItem>
 
-      {/* 2 — Thema & kleuren (inclusief ROUT-presets en custom mode) */}
-      <AccordionItem
-        value="theme_colors"
-        className="rounded-2xl border border-border bg-card px-4 sm:px-5"
-      >
-        <AccordionTrigger className="hover:no-underline">
-          <span className="flex flex-1 items-center justify-between gap-3 pr-2">
-            <span className="text-base font-medium">🎨 Thema &amp; Kleurenschema</span>
-            <span className="rounded-full border border-border px-2 py-0.5 text-[10px] text-muted-foreground">
-              {PROFILE_THEMES.find((t) => t.id === theme)?.label ?? theme}
-            </span>
-          </span>
-        </AccordionTrigger>
-        <AccordionContent className="space-y-4 pb-5">
-          <DesignPresetSection
-            prefs={prefs}
-            setPref={setPref}
-            theme={theme}
-            setTheme={onThemeChange}
-            setCardStyle={onCardStyleChange}
-          />
-          <p className="input-label border-t border-border pt-4">Themapreset</p>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {PROFILE_THEMES.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => onThemeChange(t.id)}
-                className={cn(
-                  "flex flex-col gap-2 rounded-xl border p-2.5 text-left transition-colors",
-                  theme === t.id ? "border-primary ring-1 ring-primary" : "border-border",
-                )}
-              >
-                <span
-                  className="block h-10 w-full rounded-lg border border-border"
-                  style={{ background: t.bg }}
-                  aria-hidden
-                />
-                <span className="text-xs font-medium">{t.label}</span>
-              </button>
-            ))}
-          </div>
-          <div className="space-y-3 border-t border-border pt-4">
-            <div>
-              <p className="text-sm font-medium">Canvas &amp; patroon</p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Laat leeg om het gekozen thema te volgen.
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                { key: "canvasColor" as const, label: "Achtergrondkleur" },
-                { key: "patternColor" as const, label: "Patroon- en randkleur" },
-              ].map((f) => (
-                <div key={f.key} className="space-y-1.5">
-                  <p className="input-label">{f.label}</p>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="color"
-                      aria-label={f.label}
-                      value={prefs[f.key] ?? "#111111"}
-                      onChange={(e) => setPref(f.key, e.target.value)}
-                      className="h-10 w-12 shrink-0 cursor-pointer rounded-lg border border-border bg-transparent p-1"
-                    />
-                    <Input
-                      value={prefs[f.key] ?? ""}
-                      onChange={(e) => setPref(f.key, e.target.value || null)}
-                      placeholder="#0d0d0d"
-                      spellCheck={false}
-                      className="h-10 font-mono text-xs"
-                    />
-                    {prefs[f.key] && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="h-10 shrink-0 text-xs"
-                        onClick={() => setPref(f.key, null)}
-                      >
-                        Wis
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </AccordionContent>
-      </AccordionItem>
 
       {/* 3 — Knoppen & typografie */}
       <AccordionItem
@@ -396,6 +307,35 @@ export function ProfileThemePicker({
           </span>
         </AccordionTrigger>
         <AccordionContent className="space-y-4 pb-5">
+          <DesignPresetSection
+            prefs={prefs}
+            setPref={setPref}
+            theme={theme}
+            setTheme={onThemeChange}
+            setCardStyle={onCardStyleChange}
+          />
+          <p className="input-label border-t border-border pt-4">Themapreset</p>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {PROFILE_THEMES.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => onThemeChange(t.id)}
+                className={cn(
+                  "flex flex-col gap-2 rounded-xl border p-2.5 text-left transition-colors",
+                  theme === t.id ? "border-primary ring-1 ring-primary" : "border-border",
+                )}
+              >
+                <span
+                  className="block h-10 w-full rounded-lg border border-border"
+                  style={{ background: t.bg }}
+                  aria-hidden
+                />
+                <span className="text-xs font-medium">{t.label}</span>
+              </button>
+            ))}
+          </div>
+          <div className="border-t border-border pt-4" />
           <DesignWallpaperSection prefs={prefs} setPref={setPref} theme={theme} />
           <div className="border-t border-border pt-4" />
           <VisitEffectPicker
