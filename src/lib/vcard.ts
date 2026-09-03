@@ -12,6 +12,8 @@ export interface VCardInput {
   bio?: string | null;
   avatarUrl?: string | null;
   email?: string | null;
+  phone?: string | null;
+  org?: string | null;
   profileUrl: string;
   /** Extra URL's (socials, website) die in de contactkaart terechtkomen. */
   links?: { label: string; url: string }[];
@@ -45,6 +47,8 @@ export function buildVCard(input: VCardInput): string {
     `NICKNAME:${esc(input.handle)}`,
     `URL:${esc(input.profileUrl)}`,
     ...(input.email ? [`EMAIL;TYPE=INTERNET:${esc(input.email)}`] : []),
+    ...(input.phone?.trim() ? [`TEL;TYPE=CELL:${esc(input.phone.trim())}`] : []),
+    ...(input.org?.trim() ? [`ORG:${esc(input.org.trim())}`] : []),
     ...(input.avatarUrl?.startsWith("http") ? [`PHOTO;VALUE=URI:${esc(input.avatarUrl)}`] : []),
     ...(note ? [`NOTE:${esc(note.slice(0, 300))}`] : []),
     ...(input.links ?? [])
